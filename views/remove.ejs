@@ -12,7 +12,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
-    
+
     <link rel="stylesheet" href="/public/style.css">
 
     <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -27,31 +27,33 @@
       </label>
       <label class="logo">Web Uptimer</label>
       <ul>
-        <li><a class="active" href="/add">Add</a></li>
-        <li><a href="/remove">Remove</a></li>
+        <li><a href="/add">Add</a></li>
+        <li><a class="active" href="/remove">Remove</a></li>
         <li><a href="/logout">Logout</a></li>
       </ul>
     </nav>
 
-    <center class="heading">
+    <center class="heading-padding">
 
-    <input id="url-area" placeholder="Put URL...">
+      <% if (!all.length) { %>
+        <h2 class="nourls">You don't have any URLs</h2>
+      <% } %>
 
-    <div><button type="button" id="submit-btn" onclick="submit()">Submit</button></div>
-
-    <script src="/public/input.js"></script>
+      <% all.forEach(url => { %>
+        <div class="url-box">
+          <a class="all-url" id="<%= url %>" onclick="javascript: window.open('<%= url %>')"><%= url %></a> <button onclick="submit('<%= url %>')" id="delete<%= url %>" class="delete-btn">Delete</button>
+        </div>
+      <% }); %>
 
     <script>
-      function submit () {
-
-        var url = document.getElementById('url-area').value;
+      function submit (url) {
 
         var data = {
           url: url,
           author: "<%= user.id %>"
         }
 
-        fetch('<%= config.protocol %><%= config.domain %>/api/post', {
+        fetch('<%= config.protocol %><%= config.domain %>/api/delete', {
           method: 'POST',
           mode: 'cors',
           cache: 'no-cache',
@@ -70,9 +72,9 @@
 
           if (body.success === true) {
             location.reload();
-            alert('Successfuly Added The URL');
+            alert('Success Deleted The URL');
           }
-
+          
         })
       }
     </script>
