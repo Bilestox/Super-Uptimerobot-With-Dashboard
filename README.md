@@ -13,7 +13,7 @@
 ```sh
 $ npm i
 ```
-### [Config](https://github.com/AngeloCore/uptimer/blob/main/config.json)
+### [Config](https://github.com/Bilestox/Super-Uptimerobot-With-Dashboard/blob/main/config.json)
 
 ### Protocol
 #### Put your domain portocol, example: `https://`
